@@ -34,34 +34,9 @@ class AnalysisService:
         self.scorer = Scorer()
 
     def _load_candidate_profile(self) -> dict:
-        """Loads all candidate profile JSONs into a single dictionary."""
-        profile = {}
-        profile_dir = self.settings.resolved_profile_dir()
-        
-        # If the private dir doesn't exist or is empty, use example/ if explicitly allowed
-        if not profile_dir.exists() or not list(profile_dir.glob("*.json")):
-            if not self.settings.candidate.allow_synthetic_fallback:
-                raise RuntimeError(
-                    f"Candidate profile directory '{profile_dir}' is empty or missing, "
-                    "and 'allow_synthetic_fallback' is disabled in config. "
-                    "Please populate your private profile or enable the fallback."
-                )
-            
-            logger.info(f"Private profile dir {profile_dir} empty. Falling back to example dir.")
-            profile_dir = Path(self.settings.candidate.example_dir)
-            if not profile_dir.is_absolute():
-                from applyai.core.config import PROJECT_ROOT
-                profile_dir = PROJECT_ROOT / profile_dir
-
-        if profile_dir.exists():
-            for f in profile_dir.glob("*.json"):
-                try:
-                    with open(f, "r") as fp:
-                        profile[f.stem] = json.load(fp)
-                except Exception as e:
-                    logger.warning("Failed to load %s: %s", f, e)
-        
-        return profile
+        """Loads all candidate profile JSONs into a single dictionary via shared loader."""
+        from applyai.core.candidate_loader import load_candidate_profile
+        return load_candidate_profile(self.settings)
 
     async def analyze_and_score(self, job_id: str) -> Job:
         """
@@ -86,7 +61,15 @@ class AnalysisService:
         )
 
         logger.info("Starting analysis for job %s", job_id)
-        
+
+        # Idempotency guard: if this job has already been analyzed, skip LLM calls.
+        if job.status in ("scored", "analyzed", "shortlisted"):
+            logger.warning(
+                "Job %s already has status=%r — skipping re-analysis to avoid duplicate LLM cost.",
+                job_id, job.status
+            )
+            return job
+
         # 1. Analyzer
         analysis = await self.analyzer.analyze(normalized)
         

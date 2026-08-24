@@ -92,7 +92,13 @@ class ResumeService:
             )).scalars().all()
             version_num = len(existing_versions) + 1
             
-            file_name = f"resume_job_{job_id}_v{version_num}.md"
+            # Sanitize job_id: only allow alphanumeric chars and dashes (UUIDs)
+            # This prevents path traversal if a malicious source_job_id leaks into job.id.
+            safe_job_id = "".join(c for c in job_id if c.isalnum() or c == "-")
+            if not safe_job_id:
+                raise ValueError(f"Job ID {job_id!r} produced an empty safe filename.")
+
+            file_name = f"resume_job_{safe_job_id}_v{version_num}.md"
             file_path = resumes_dir / file_name
             
             with open(file_path, "w") as f:

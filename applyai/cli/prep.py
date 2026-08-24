@@ -12,7 +12,6 @@ from applyai.core.config import get_settings
 from applyai.core.logging import setup_logging
 from applyai.models.job import Job
 from applyai.models.analysis import JobAnalysis
-from applyai.services.analysis_service import AnalysisService
 from applyai.agents.qa_agent import QAAgent
 from applyai.agents.outreach_agent import OutreachAgent
 from sqlalchemy import select
@@ -42,9 +41,9 @@ async def _run_prep(job_id: str):
     
     console.print(f"[bold cyan]Preparing Application for {job.company} - {job.role}...[/bold cyan]")
     
-    # Load profile
-    analysis_service = AnalysisService()
-    profile = analysis_service._load_candidate_profile()
+    # Load profile via shared loader (not via private AnalysisService method)
+    from applyai.core.candidate_loader import load_candidate_profile
+    profile = load_candidate_profile(settings)
     
     # QA
     console.print("[dim]Running QA Agent...[/dim]")

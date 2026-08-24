@@ -58,9 +58,9 @@ class ApplicationService:
                 raise ValueError(f"Invalid transition from '{current_status}' to '{new_status}'.")
 
             app.status = new_status
-            await session.commit()
 
-            # Audit event
+            # Emit the audit event BEFORE committing the session so both
+            # the status update and the event either succeed or fail together.
             await self._events.emit(
                 EventType.APPLICATION_STATUS_CHANGED,
                 entity_type="application",
@@ -71,5 +71,7 @@ class ApplicationService:
                     "job_id": app.job_id
                 }
             )
+
+            await session.commit()
 
             return app
