@@ -21,6 +21,9 @@ class Job(Base):
         String(36), primary_key=True, default=lambda: str(uuid.uuid4())
     )
     source: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
+    source_job_id: Mapped[str | None] = mapped_column(
+        String(255), index=True
+    )  # Platform-assigned ID — used for deterministic deduplication
 
     # ── Company & Role ────────────────────────────────────────────────────────
     company: Mapped[str | None] = mapped_column(String(255))
@@ -41,10 +44,13 @@ class Job(Base):
     salary_min: Mapped[int | None] = mapped_column(Integer)
     salary_max: Mapped[int | None] = mapped_column(Integer)
     salary_currency: Mapped[str | None] = mapped_column(String(10), default="INR")
+    salary_raw: Mapped[str | None] = mapped_column(Text)        # original text; never invented
+    salary_period: Mapped[str | None] = mapped_column(String(20))  # "annual"|"monthly"|"lpa"
 
     # ── Requirements ──────────────────────────────────────────────────────────
     experience_min_years: Mapped[int | None] = mapped_column(Integer)
     experience_max_years: Mapped[int | None] = mapped_column(Integer)
+    experience_raw: Mapped[str | None] = mapped_column(Text)     # original text; never invented
     education_required: Mapped[str | None] = mapped_column(String(255))
 
     # ── Content ───────────────────────────────────────────────────────────────

@@ -1,12 +1,16 @@
-"""Root CLI application — placeholder for Phase 2."""
+"""Root CLI application."""
 
 import typer
+
+from applyai.cli.ingest import ingest_app
 
 app = typer.Typer(
     name="applyai",
     help="AI-powered personal job acquisition agent.",
     no_args_is_help=True,
 )
+
+app.add_typer(ingest_app, name="ingest")
 
 
 @app.command()

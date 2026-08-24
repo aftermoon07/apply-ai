@@ -1,11 +1,34 @@
-"""applyai.processing — deterministic processing modules (zero LLM usage).
+"""applyai.processing package — deterministic, zero-LLM preprocessing."""
 
-All modules in this package use pure Python only:
-  deduplicator.py    — SHA-256 content hashing + DB lookup
-  url_normalizer.py  — urllib.parse normalization
-  date_parser.py     — dateutil-based parsing
-  salary_extractor.py — regex-based salary extraction
-  scorer.py          — weighted score aggregation from config
+from applyai.processing.deduplicator import (
+    DeduplicationKeys,
+    build_content_fingerprint,
+    compute_content_hash,
+    compute_hash_from_string,
+)
+from applyai.processing.url_normalizer import normalize_url, urls_are_equivalent
+from applyai.processing.date_parser import DateParseResult, ParseStatus, parse_date, parse_date_to_iso
+from applyai.processing.salary_extractor import SalaryConfidence, SalaryResult, extract_salary
+from applyai.processing.normalizer import JobNormalizer
 
-Phase 2 scope.
-"""
+__all__ = [
+    # Deduplication
+    "DeduplicationKeys",
+    "build_content_fingerprint",
+    "compute_content_hash",
+    "compute_hash_from_string",
+    # URL
+    "normalize_url",
+    "urls_are_equivalent",
+    # Date
+    "DateParseResult",
+    "ParseStatus",
+    "parse_date",
+    "parse_date_to_iso",
+    # Salary
+    "SalaryConfidence",
+    "SalaryResult",
+    "extract_salary",
+    # Normalizer
+    "JobNormalizer",
+]

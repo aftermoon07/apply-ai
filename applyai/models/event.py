@@ -17,12 +17,15 @@ class EventType(StrEnum):
     # Job pipeline
     JOB_DISCOVERED = "job_discovered"
     JOB_NORMALIZED = "job_normalized"
-    JOB_DEDUPLICATED = "job_deduplicated"       # duplicate detected; not inserted
+    JOB_DEDUPLICATED = "job_deduplicated"           # duplicate detected; not inserted
+    JOB_DUPLICATE_DETECTED = "job_duplicate_detected"  # alias used by ingestion service
     JOB_ANALYZED = "job_analyzed"
     JOB_SCORED = "job_scored"
     JOB_SHORTLISTED = "job_shortlisted"
-    JOB_REJECTED = "job_rejected"               # fell below threshold or hard constraint
-    JOB_ERROR = "job_error"                     # pipeline error on a job
+    JOB_REJECTED = "job_rejected"                   # fell below threshold or hard constraint
+    JOB_ERROR = "job_error"                         # pipeline error on a job
+    JOB_INGESTION_ERROR = "job_ingestion_error"     # error during ingestion
+    JOB_INGESTION_COMPLETE = "job_ingestion_complete"  # batch ingestion summary
 
     # Resume
     RESUME_GENERATED = "resume_generated"

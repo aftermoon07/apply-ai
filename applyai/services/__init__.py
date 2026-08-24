@@ -1,6 +1,6 @@
-"""applyai.services — UI-agnostic business logic layer.
+"""applyai.services package."""
 
-Services are called by both the CLI and any future web UI.
-They do not import from applyai.cli.
-Phase 2/3 scope.
-"""
+from applyai.services.event_service import EventService
+from applyai.services.job_service import JobService
+
+__all__ = ["EventService", "JobService"]
