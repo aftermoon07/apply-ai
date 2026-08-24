@@ -19,6 +19,7 @@ class EventType(StrEnum):
     JOB_NORMALIZED = "job_normalized"
     JOB_DEDUPLICATED = "job_deduplicated"           # duplicate detected; not inserted
     JOB_DUPLICATE_DETECTED = "job_duplicate_detected"  # alias used by ingestion service
+    JOB_INGESTED = "job_ingested"
     JOB_ANALYZED = "job_analyzed"
     JOB_SCORED = "job_scored"
     JOB_SHORTLISTED = "job_shortlisted"
@@ -33,6 +34,7 @@ class EventType(StrEnum):
     # Application
     APPLICATION_PREPARED = "application_prepared"
     APPLICATION_SUBMITTED = "application_submitted"   # V3; requires human approval
+    APPLICATION_STATUS_CHANGED = "application_status_changed"
 
     # Outreach
     OUTREACH_PREPARED = "outreach_prepared"

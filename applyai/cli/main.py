@@ -9,6 +9,8 @@ from applyai.cli.resume import resume_app
 from applyai.cli.discover import discover_app
 from applyai.cli.pipeline import pipeline_app
 from applyai.cli.eval import eval_app
+from applyai.cli.track import track_app
+from applyai.cli.prep import prep_app
 
 app = typer.Typer(
     name="applyai",
@@ -24,6 +26,8 @@ app.add_typer(resume_app, name="resume")
 app.add_typer(discover_app, name="discover")
 app.add_typer(pipeline_app, name="pipeline")
 app.add_typer(eval_app, name="eval")
+app.add_typer(track_app, name="track")
+app.add_typer(prep_app, name="prep")
 
 
 @app.command()

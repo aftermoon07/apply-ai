@@ -44,13 +44,39 @@ class EvalRunner:
             expected = case["expected"]
             errors = []
             
-            if analysis.role_level != expected["role_level"]:
-                errors.append(f"Role level mismatch: got {analysis.role_level}, expected {expected['role_level']}")
+            if analysis.role_level != expected.get("role_level"):
+                errors.append(f"Role level mismatch: got {analysis.role_level}, expected {expected.get('role_level')}")
                 
             found_keywords = set(k.lower() for k in analysis.ats_keywords)
-            for kw in expected["ats_keywords_include"]:
+            for kw in expected.get("ats_keywords_include", []):
                 if kw.lower() not in found_keywords:
                     errors.append(f"Missing ATS keyword: {kw}")
+                    
+            # Check Required Skills Preservation
+            found_req = set(k.lower() for k in analysis.required_skills)
+            for req in expected.get("required_skills_include", []):
+                if not any(req.lower() in k for k in found_req):
+                    errors.append(f"Missing required skill: {req}")
+
+            # Check Hallucinations
+            jd_text = case["job_description"].lower()
+            
+            # Helper to check if a term is hallucinated. We allow some leeway for common acronyms.
+            def is_hallucinated(term: str) -> bool:
+                t = term.lower()
+                # Basic substring check. In a real system, you might use stemming or embeddings.
+                return t not in jd_text
+
+            hallucination_fields = [
+                ("required_skills", analysis.required_skills),
+                ("preferred_skills", analysis.preferred_skills),
+                ("tech_stack", analysis.tech_stack)
+            ]
+            
+            for field_name, items in hallucination_fields:
+                for item in items:
+                    if is_hallucinated(item):
+                        errors.append(f"Hallucination detected in {field_name}: '{item}' not found in JD")
                     
             if not errors:
                 results["passed"] += 1
