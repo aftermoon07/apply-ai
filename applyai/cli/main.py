@@ -3,6 +3,7 @@
 import typer
 
 from applyai.cli.ingest import ingest_app
+from applyai.cli.analysis import analyze
 
 app = typer.Typer(
     name="applyai",
@@ -11,6 +12,7 @@ app = typer.Typer(
 )
 
 app.add_typer(ingest_app, name="ingest")
+app.command(name="analyze")(analyze)
 
 
 @app.command()

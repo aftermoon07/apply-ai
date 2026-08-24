@@ -11,3 +11,7 @@ API keys come from .env only.
 IMPORTANT: This layer is for the ApplyAI runtime application.
 It has NO connection to the Antigravity IDE or its development agent session.
 """
+from applyai.providers.base import AIProvider
+from applyai.providers.factory import get_provider
+
+__all__ = ["AIProvider", "get_provider"]
