@@ -81,9 +81,10 @@ Skill proficiency ≠ years of professional experience. Marking a skill `strong`
 uv run applyai profile validate
 uv run applyai profile show
 
-# Ingest a job (paste or file)
-uv run applyai ingest --file path/to/job.txt
-uv run applyai ingest --batch path/to/jobs.json
+# Ingest a job (paste, file, or JSON batch)
+uv run applyai ingest file --file path/to/job.txt
+cat job.txt | uv run applyai ingest text
+uv run applyai ingest batch --file path/to/jobs.json
 
 # Run analysis pipeline
 uv run applyai analyze
