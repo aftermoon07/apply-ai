@@ -7,6 +7,8 @@ from applyai.cli.analysis import analyze
 from applyai.cli.shortlist import shortlist_app, show_app
 from applyai.cli.resume import resume_app
 from applyai.cli.discover import discover_app
+from applyai.cli.pipeline import pipeline_app
+from applyai.cli.eval import eval_app
 
 app = typer.Typer(
     name="applyai",
@@ -20,6 +22,8 @@ app.add_typer(shortlist_app, name="shortlist")
 app.add_typer(show_app, name="show")
 app.add_typer(resume_app, name="resume")
 app.add_typer(discover_app, name="discover")
+app.add_typer(pipeline_app, name="pipeline")
+app.add_typer(eval_app, name="eval")
 
 
 @app.command()
