@@ -1,0 +1,68 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ApplyAI — Application Settings
+# All sensitive values belong in .env, NOT here.
+# This file is committed to Git.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── AI Provider ───────────────────────────────────────────────────────────────
+# provider: "none" | "anthropic" | "gemini"
+#
+# "none" → NullProvider; LLM-dependent steps return status: skipped
+# "anthropic" → requires ANTHROPIC_API_KEY in .env
+# "gemini"    → requires GOOGLE_API_KEY in .env
+#
+# IMPORTANT: The model identifier is validated against the provider at startup.
+# Do NOT hardcode model strings in source code. Change them only here.
+ai:
+  provider: none
+  model: ""                         # e.g. "claude-sonnet-4-5" or "gemini-2.0-flash"
+  thinking_enabled: false           # extended thinking (provider-dependent)
+  thinking_budget_tokens: 8000
+  max_retries: 3
+  retry_backoff_seconds: 2.0
+  timeout_seconds: 60.0
+
+# ── Scoring ───────────────────────────────────────────────────────────────────
+# Weights must sum exactly to 1.0 — validated at startup.
+# All weights are configurable here; they are never hardcoded in source.
+scoring:
+  weights:
+    technical_skills:      0.30
+    experience_compat:     0.20
+    education_compat:      0.10
+    location_work_mode:    0.10
+    experience_level:      0.10
+    project_relevance:     0.10
+    keyword_coverage:      0.10
+
+  thresholds:
+    strong_yes:   80.0
+    yes_score:    65.0
+    maybe:        45.0
+    shortlist_min_score: 65.0
+
+  # Interview Potential Score: internal heuristic only.
+  # Never presented as a guaranteed probability.
+  interview_potential:
+    fit_weight:               0.40
+    experience_compat_weight: 0.20
+    project_weight:           0.15
+    skill_alignment_weight:   0.15
+    friction_penalty_weight:  0.10
+
+# ── Ingestion ─────────────────────────────────────────────────────────────────
+ingestion:
+  default_source: manual
+  max_batch_size: 100
+
+# ── Candidate ─────────────────────────────────────────────────────────────────
+candidate:
+  # Override with CANDIDATE_PROFILE_DIR env var if needed
+  profile_dir: candidate/private
+  example_dir: candidate/example
+  require_complete_profile: false   # warn rather than block on missing optional fields
+
+# ── Application ───────────────────────────────────────────────────────────────
+app:
+  log_level: INFO
+  data_dir: data

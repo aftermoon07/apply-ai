@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your real experience in candidate/private/experience.json",
+  "entries": [
+    {
+      "id": "exp_example_corp_swe2",
+      "company": "Example Corp",
+      "title": "Software Engineer II",
+      "location": "Bangalore, India",
+      "work_mode": "hybrid",
+      "employment_type": "full_time",
+      "start_date": "2022-06",
+      "end_date": null,
+      "is_current": true,
+      "description": "Backend platform team responsible for internal developer tooling and CI/CD infrastructure.",
+      "responsibilities": [
+        "Designed and maintained internal deployment pipelines serving 50+ engineering teams",
+        "Led migration of monolithic service to microservices architecture",
+        "Conducted code reviews and mentored junior engineers"
+      ],
+      "achievements": [
+        "Reduced average deployment time by 40% through pipeline optimization",
+        "Onboarded 3 new team members to platform tooling within their first month"
+      ],
+      "technologies": ["Python", "Go", "Kubernetes", "Terraform", "PostgreSQL", "Redis"],
+      "team_size": 8
+    },
+    {
+      "id": "exp_startup_swe1",
+      "company": "Example Startup",
+      "title": "Software Engineer",
+      "location": "Remote",
+      "work_mode": "remote",
+      "employment_type": "full_time",
+      "start_date": "2020-08",
+      "end_date": "2022-05",
+      "is_current": false,
+      "description": "Full-stack development for a SaaS analytics platform.",
+      "responsibilities": [
+        "Built REST APIs using FastAPI and PostgreSQL",
+        "Developed data ingestion pipelines processing ~2M events/day"
+      ],
+      "achievements": [
+        "Delivered core billing integration ahead of schedule"
+      ],
+      "technologies": ["Python", "FastAPI", "PostgreSQL", "React", "AWS"],
+      "team_size": 12
+    }
+  ]
+}

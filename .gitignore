@@ -1,0 +1,56 @@
+# ── Secrets & credentials ─────────────────────────────────────────────────────
+.env
+*.pem
+*.key
+*.p12
+
+# ── Private candidate profile (real personal data) ────────────────────────────
+candidate/private/
+!candidate/private/.gitkeep
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ── Virtual environments (uv-managed) ─────────────────────────────────────────
+.venv/
+venv/
+env/
+.env/
+
+# ── uv ────────────────────────────────────────────────────────────────────────
+# uv.lock is COMMITTED for reproducibility (do not ignore)
+
+# ── Testing & coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+*.xml
+.tox/
+
+# ── Runtime data & databases ──────────────────────────────────────────────────
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Editors ───────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Alembic ───────────────────────────────────────────────────────────────────
+# alembic.ini is committed; only exclude generated artefacts

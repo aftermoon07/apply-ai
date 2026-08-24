@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your real projects in candidate/private/projects.json",
+  "entries": [
+    {
+      "id": "proj_oss_cli_tool",
+      "name": "deploy-watch",
+      "description": "Open-source CLI tool for monitoring Kubernetes deployment rollouts with alerting hooks.",
+      "role": "Author and maintainer",
+      "is_professional": false,
+      "is_open_source": true,
+      "url": "https://github.com/example/deploy-watch",
+      "technologies": ["Go", "Kubernetes API", "Cobra CLI"],
+      "start_date": "2023-01",
+      "end_date": null,
+      "highlights": [
+        "200+ GitHub stars",
+        "Used by 3 companies in production (self-reported)"
+      ],
+      "team_size": 1
+    },
+    {
+      "id": "proj_internal_dashboard",
+      "name": "Platform Metrics Dashboard",
+      "description": "Internal real-time dashboard for CI/CD pipeline health and deployment frequency metrics.",
+      "role": "Lead engineer — built as part of employment at Example Corp",
+      "is_professional": true,
+      "is_open_source": false,
+      "url": null,
+      "technologies": ["Python", "Grafana", "Prometheus", "FastAPI"],
+      "start_date": "2023-03",
+      "end_date": "2023-09",
+      "highlights": [
+        "Adopted by all 8 platform squads within 2 months of launch"
+      ],
+      "team_size": 3
+    }
+  ]
+}

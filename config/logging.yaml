@@ -1,0 +1,48 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  standard:
+    format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+    datefmt: "%Y-%m-%dT%H:%M:%S"
+
+  rich:
+    # Used by rich.logging.RichHandler — format is minimal since Rich adds level/time
+    format: "%(message)s"
+
+handlers:
+  console:
+    class: rich.logging.RichHandler
+    level: DEBUG
+    formatter: rich
+    rich_tracebacks: true
+    markup: true
+    show_path: false
+
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: standard
+    filename: logs/applyai.log
+    maxBytes: 10485760    # 10 MB
+    backupCount: 5
+    encoding: utf-8
+
+loggers:
+  applyai:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+
+  applyai.providers:
+    level: INFO           # set DEBUG to trace AI API calls
+
+  applyai.agents:
+    level: INFO
+
+  sqlalchemy.engine:
+    level: WARNING        # set INFO to trace SQL queries
+
+root:
+  level: WARNING
+  handlers: [console]

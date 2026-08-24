@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your real skills in candidate/private/skills.json",
+  "categories": [
+    {
+      "category": "Languages",
+      "skills": ["Python", "Go", "SQL", "Bash"]
+    },
+    {
+      "category": "Frameworks & Libraries",
+      "skills": ["FastAPI", "SQLAlchemy", "Cobra CLI", "React"]
+    },
+    {
+      "category": "Infrastructure & Cloud",
+      "skills": ["Kubernetes", "Terraform", "AWS", "Docker"]
+    },
+    {
+      "category": "Databases",
+      "skills": ["PostgreSQL", "Redis", "SQLite"]
+    },
+    {
+      "category": "Tools & Platforms",
+      "skills": ["Git", "GitHub Actions", "Prometheus", "Grafana", "Linux"]
+    }
+  ]
+}

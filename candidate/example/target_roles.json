@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your target roles in candidate/private/target_roles.json",
+  "roles": [
+    {
+      "title": "Senior Software Engineer",
+      "seniority_level": "senior",
+      "keywords": ["platform", "backend", "distributed systems", "cloud"],
+      "priority": 1
+    },
+    {
+      "title": "Staff Engineer",
+      "seniority_level": "staff",
+      "keywords": ["platform engineering", "developer experience", "infrastructure"],
+      "priority": 2
+    },
+    {
+      "title": "Software Engineer",
+      "seniority_level": "mid",
+      "keywords": ["backend", "golang", "python", "kubernetes"],
+      "priority": 3
+    }
+  ]
+}

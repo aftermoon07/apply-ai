@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your preferences in candidate/private/preferences.json. These are soft preferences, not hard requirements.",
+  "preferred_work_mode": "remote",
+  "preferred_company_size": "medium",
+  "preferred_industries": ["developer_tools", "platform_engineering", "cloud_infrastructure"],
+  "preferred_team_size": "small_to_medium",
+  "preferred_tech_stack": ["Python", "Go", "Kubernetes"],
+  "values": ["engineering_excellence", "developer_autonomy", "open_source"],
+  "notes": null
+}

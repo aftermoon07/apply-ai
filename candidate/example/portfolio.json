@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your real portfolio links in candidate/private/portfolio.json",
+  "github_url": "https://github.com/example",
+  "personal_website": null,
+  "linkedin_url": "https://linkedin.com/in/example",
+  "publications": [],
+  "open_source_contributions": [
+    {
+      "repo": "example/deploy-watch",
+      "description": "Author and maintainer of deploy-watch CLI tool",
+      "url": "https://github.com/example/deploy-watch"
+    }
+  ],
+  "kaggle_profile": null,
+  "other_links": []
+}

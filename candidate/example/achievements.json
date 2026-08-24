@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your real achievements in candidate/private/achievements.json",
+  "entries": [
+    {
+      "id": "ach_hackathon_2022",
+      "title": "1st Place — Internal Hackathon 2022",
+      "description": "Built a developer productivity tool that auto-generates runbooks from deployment events. Won company-wide hackathon with 30 participating teams.",
+      "date": "2022-11",
+      "evidence_url": null
+    }
+  ]
+}

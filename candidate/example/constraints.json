@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your constraints in candidate/private/constraints.json. ALL values default to null (unset). Do NOT populate this with assumed or inferred values. Only set what you explicitly know and want enforced.",
+  "hard_constraints": {
+    "_note": "null means 'not specified' — the system will not infer or assume values",
+    "requires_visa_sponsorship": null,
+    "current_work_authorization": null,
+    "willing_to_relocate": null,
+    "relocation_cities": null,
+    "minimum_salary": null,
+    "salary_currency": null,
+    "maximum_commute_minutes": null,
+    "no_bond": null,
+    "no_night_shifts": null
+  },
+  "soft_constraints": {
+    "preferred_work_mode": null,
+    "preferred_team_size": null,
+    "avoid_industries": []
+  }
+}

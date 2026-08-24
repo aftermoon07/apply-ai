@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data. Replace with your real skill levels in candidate/private/skill_levels.json. POLICY: skill level = proficiency, NOT years of professional employment. Evidence must link to experience.json or projects.json IDs.",
+  "levels": {
+    "strong": "Used professionally in production systems; can mentor others",
+    "working": "Used in real projects; comfortable independently",
+    "basic": "Have used it; require reference material for non-trivial tasks",
+    "learning": "Currently studying; not yet used in real work",
+    "none": "No experience"
+  },
+  "skills": [
+    {
+      "name": "Python",
+      "level": "strong",
+      "years_of_experience": 4,
+      "evidence": ["exp_startup_swe1", "exp_example_corp_swe2", "proj_internal_dashboard"],
+      "tags": ["language", "backend"],
+      "notes": "Years of experience is from evidence above — not inferred from level"
+    },
+    {
+      "name": "Go",
+      "level": "working",
+      "years_of_experience": 2,
+      "evidence": ["exp_example_corp_swe2", "proj_oss_cli_tool"],
+      "tags": ["language", "backend"],
+      "notes": null
+    },
+    {
+      "name": "Kubernetes",
+      "level": "working",
+      "years_of_experience": 2,
+      "evidence": ["exp_example_corp_swe2"],
+      "tags": ["infrastructure", "cloud"],
+      "notes": null
+    },
+    {
+      "name": "Terraform",
+      "level": "basic",
+      "years_of_experience": null,
+      "evidence": ["exp_example_corp_swe2"],
+      "tags": ["infrastructure", "iac"],
+      "notes": "Used for team infra tasks; not the primary author"
+    },
+    {
+      "name": "Rust",
+      "level": "learning",
+      "years_of_experience": null,
+      "evidence": [],
+      "tags": ["language"],
+      "notes": "Self-studying; no production use yet"
+    },
+    {
+      "name": "Java",
+      "level": "none",
+      "years_of_experience": null,
+      "evidence": [],
+      "tags": ["language"],
+      "notes": null
+    }
+  ]
+}

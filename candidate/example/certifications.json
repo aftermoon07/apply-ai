@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Synthetic example data — replace with your real certifications in candidate/private/certifications.json. Only list certifications you have actually earned.",
+  "entries": [
+    {
+      "id": "cert_cka",
+      "name": "Certified Kubernetes Administrator (CKA)",
+      "issuing_organization": "Cloud Native Computing Foundation",
+      "issue_date": "2023-04",
+      "expiry_date": "2026-04",
+      "credential_id": "CKA-XXXXXXXX",
+      "credential_url": "https://www.credly.com/example",
+      "is_expired": false
+    }
+  ]
+}
