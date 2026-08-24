@@ -45,3 +45,16 @@ class AnthropicProvider(AIProvider):
                 return response_model.model_validate(content.input)
         
         raise ValueError("Anthropic API did not return the expected tool_use block.")
+
+    async def generate_text(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+    ) -> str:
+        response = await self.client.messages.create(
+            model=self.model,
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_prompt}],
+            temperature=0.0
+        )
+        return response.content[0].text

@@ -27,3 +27,10 @@ class NullProvider(AIProvider):
         # or we might get a ValidationError. Our schemas in Phase 3
         # should have Optional/defaults for this to work smoothly.
         return response_model.model_construct()
+
+    async def generate_text(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+    ) -> str:
+        return "# Dummy Generated Text\n\nThis is a placeholder since the AI provider is 'none'."

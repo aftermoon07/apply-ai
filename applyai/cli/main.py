@@ -4,6 +4,8 @@ import typer
 
 from applyai.cli.ingest import ingest_app
 from applyai.cli.analysis import analyze
+from applyai.cli.shortlist import shortlist_app, show_app
+from applyai.cli.resume import resume_app
 
 app = typer.Typer(
     name="applyai",
@@ -13,6 +15,9 @@ app = typer.Typer(
 
 app.add_typer(ingest_app, name="ingest")
 app.command(name="analyze")(analyze)
+app.add_typer(shortlist_app, name="shortlist")
+app.add_typer(show_app, name="show")
+app.add_typer(resume_app, name="resume")
 
 
 @app.command()

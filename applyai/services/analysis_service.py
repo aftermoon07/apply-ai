@@ -38,8 +38,15 @@ class AnalysisService:
         profile = {}
         profile_dir = self.settings.resolved_profile_dir()
         
-        # If the private dir doesn't exist or is empty, use example/
-        if not profile_dir.exists() or not any(profile_dir.iterdir()):
+        # If the private dir doesn't exist or is empty, use example/ if explicitly allowed
+        if not profile_dir.exists() or not list(profile_dir.glob("*.json")):
+            if not self.settings.candidate.allow_synthetic_fallback:
+                raise RuntimeError(
+                    f"Candidate profile directory '{profile_dir}' is empty or missing, "
+                    "and 'allow_synthetic_fallback' is disabled in config. "
+                    "Please populate your private profile or enable the fallback."
+                )
+            
             logger.info(f"Private profile dir {profile_dir} empty. Falling back to example dir.")
             profile_dir = Path(self.settings.candidate.example_dir)
             if not profile_dir.is_absolute():

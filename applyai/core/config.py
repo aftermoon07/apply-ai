@@ -128,6 +128,7 @@ class IngestionConfig(BaseModel):
 class CandidateConfig(BaseModel):
     profile_dir: str = "candidate/private"
     example_dir: str = "candidate/example"
+    allow_synthetic_fallback: bool = False
     require_complete_profile: bool = False
 
 

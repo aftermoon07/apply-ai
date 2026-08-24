@@ -70,3 +70,23 @@ async def test_batch_analyze_and_score():
     assert len(results) == 2
     for job in results:
         assert job.status == "scored"
+
+@pytest.mark.asyncio
+async def test_synthetic_fallback_disabled():
+    repo = JobRepository()
+    job = await repo.create(NormalizedJob(
+        source="test",
+        job_url="https://test.com/3",
+        content_hash="test3",
+        company="Acme",
+        role="SWE",
+        date_discovered="2024-01-01T00:00:00Z"
+    ))
+    
+    service = AnalysisService(repo)
+    # Monkeypatch the config temporarily
+    service.settings.candidate.allow_synthetic_fallback = False
+    
+    # If the private dir is empty, it should raise
+    with pytest.raises(RuntimeError, match="allow_synthetic_fallback' is disabled"):
+        await service.analyze_and_score(job.id)

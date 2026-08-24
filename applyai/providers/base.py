@@ -32,3 +32,21 @@ class AIProvider(ABC):
             An instance of the response_model.
         """
         ...
+        
+    @abstractmethod
+    async def generate_text(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+    ) -> str:
+        """
+        Generate a raw text response.
+        
+        Args:
+            system_prompt: High-level instructions.
+            user_prompt: The specific task data.
+            
+        Returns:
+            The raw text string from the model.
+        """
+        ...

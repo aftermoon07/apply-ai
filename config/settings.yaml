@@ -60,6 +60,7 @@ candidate:
   # Override with CANDIDATE_PROFILE_DIR env var if needed
   profile_dir: candidate/private
   example_dir: candidate/example
+  allow_synthetic_fallback: true
   require_complete_profile: false   # warn rather than block on missing optional fields
 
 # ── Application ───────────────────────────────────────────────────────────────

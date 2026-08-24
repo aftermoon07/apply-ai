@@ -32,3 +32,18 @@ class GeminiProvider(AIProvider):
             )
         )
         return response_model.model_validate_json(response.text)
+
+    async def generate_text(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+    ) -> str:
+        response = await self.client.aio.models.generate_content(
+            model=self.model,
+            contents=user_prompt,
+            config=types.GenerateContentConfig(
+                system_instruction=system_prompt,
+                temperature=0.0,
+            )
+        )
+        return response.text
