@@ -36,7 +36,10 @@ class JobAnalyzerAgent:
             "Identify the role level (intern, junior, mid, senior, staff, principal, director), "
             "team culture signals, red flags (e.g. high turnover hints, unreasonable expectations), "
             "green flags (e.g. mentorship, modern stack, clear growth), key responsibilities, "
-            "tech stack, domain, required skills, and preferred skills. "
+            "tech stack, domain, required skills, preferred skills, and ats_keywords. "
+            "CRITICAL: When extracting `required_skills`, `preferred_skills`, `tech_stack`, and `ats_keywords`, "
+            "you MUST extract the exact terminology, casing, and phrasing used in the raw job description. "
+            "DO NOT paraphrase. DO NOT normalize. This is critical for ATS keyword matching. "
             "Be objective and concise."
         )
 

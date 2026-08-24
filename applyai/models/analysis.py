@@ -43,6 +43,7 @@ class JobAnalysis(Base):
     key_responsibilities: Mapped[str | None] = mapped_column(Text)  # JSON array
     tech_stack: Mapped[str | None] = mapped_column(Text)         # JSON array
     domain: Mapped[str | None] = mapped_column(String(100))      # e.g. "fintech"
+    ats_keywords: Mapped[str | None] = mapped_column(Text)       # JSON array
 
     # ── Pipeline metadata ─────────────────────────────────────────────────────
     analysis_status: Mapped[str] = mapped_column(

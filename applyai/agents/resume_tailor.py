@@ -36,6 +36,7 @@ class ResumeTailorAgent:
             "2. Re-order and emphasize existing facts to highlight relevance to the job.\n"
             "3. Use a clean, professional Markdown layout with standard sections: Summary, Experience, Projects, Education, Skills.\n"
             "4. Only output the markdown content, no extra conversational text.\n"
+            "5. CRITICAL: Blend the provided `ats_keywords` naturally into the experience bullets and skills section exactly as spelled to maximize ATS parsing.\n"
         )
 
         user_prompt = f"""
@@ -45,6 +46,7 @@ class ResumeTailorAgent:
         Role Level: {analysis.role_level}
         Tech Stack: {analysis.tech_stack}
         Required Skills: {analysis.required_skills}
+        ATS Keywords: {analysis.ats_keywords}
         Key Responsibilities: {analysis.key_responsibilities}
         
         # Candidate Profile

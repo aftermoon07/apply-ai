@@ -129,6 +129,7 @@ class AnalysisService:
                 key_responsibilities=json.dumps(analysis.key_responsibilities),
                 tech_stack=json.dumps(analysis.tech_stack),
                 domain=analysis.domain,
+                ats_keywords=json.dumps(analysis.ats_keywords),
                 analysis_status=analysis.analysis_status,
                 provider_used=analysis.provider_used,
                 model_used=analysis.model_used

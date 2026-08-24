@@ -137,6 +137,19 @@ class AppMeta(BaseModel):
     data_dir: str = "data"
 
 
+class DiscoverySourceConfig(BaseModel):
+    name: str
+    type: str
+    enabled: bool = True
+    limit: int = 10
+    config: dict = Field(default_factory=dict)
+
+class DiscoveryConfig(BaseModel):
+    enabled: bool = True
+    global_rate_limit_seconds: float = 5.0
+    sources: list[DiscoverySourceConfig] = Field(default_factory=list)
+
+
 # ── Main Settings ─────────────────────────────────────────────────────────────
 
 
@@ -177,6 +190,7 @@ class Settings(BaseSettings):
     scoring: ScoringConfig = ScoringConfig()
     ingestion: IngestionConfig = IngestionConfig()
     candidate: CandidateConfig = CandidateConfig()
+    discovery: DiscoveryConfig = DiscoveryConfig()
     app: AppMeta = AppMeta()
 
     def api_key_for(self, provider: str) -> str:
@@ -233,6 +247,15 @@ def _build_settings(yaml_path: Path | None = None) -> Settings:
             ),
         )
         ingestion_cfg = IngestionConfig(**raw.get("ingestion", {}))
+        
+        discovery_raw = raw.get("discovery", {})
+        sources = [DiscoverySourceConfig(**s) for s in discovery_raw.get("sources", [])]
+        discovery_cfg = DiscoveryConfig(
+            enabled=discovery_raw.get("enabled", True),
+            global_rate_limit_seconds=discovery_raw.get("global_rate_limit_seconds", 5.0),
+            sources=sources
+        )
+        
         candidate_cfg = CandidateConfig(**raw.get("candidate", {}))
         app_cfg = AppMeta(**raw.get("app", {}))
     except (ValueError, TypeError) as exc:
@@ -243,6 +266,7 @@ def _build_settings(yaml_path: Path | None = None) -> Settings:
         scoring=scoring_cfg,
         ingestion=ingestion_cfg,
         candidate=candidate_cfg,
+        discovery=discovery_cfg,
         app=app_cfg,
     )
 

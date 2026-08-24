@@ -68,6 +68,7 @@ class ResumeService:
                 key_responsibilities=json.loads(analysis_obj.key_responsibilities or "[]"),
                 tech_stack=json.loads(analysis_obj.tech_stack or "[]"),
                 domain=analysis_obj.domain,
+                ats_keywords=json.loads(analysis_obj.ats_keywords or "[]"),
                 analysis_status=analysis_obj.analysis_status,
                 provider_used=analysis_obj.provider_used,
                 model_used=analysis_obj.model_used

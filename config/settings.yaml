@@ -55,6 +55,18 @@ ingestion:
   default_source: manual
   max_batch_size: 100
 
+# ── Discovery ─────────────────────────────────────────────────────────────────
+discovery:
+  enabled: true
+  global_rate_limit_seconds: 2.0
+  sources:
+    - name: "mock_jobs_1"
+      type: "mock"
+      enabled: true
+      limit: 5
+      config:
+        company_prefix: "MockCorp"
+
 # ── Candidate ─────────────────────────────────────────────────────────────────
 candidate:
   # Override with CANDIDATE_PROFILE_DIR env var if needed

@@ -20,6 +20,7 @@ class JobAnalysisOutput(BaseModel):
     domain: str | None = None
     required_skills: list[str] = Field(default_factory=list)
     preferred_skills: list[str] = Field(default_factory=list)
+    ats_keywords: list[str] = Field(default_factory=list)
 
     # Provider metadata
     provider_used: str | None = None
