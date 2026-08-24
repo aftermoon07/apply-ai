@@ -175,3 +175,7 @@ uv run alembic upgrade head
 | **V1** ✅ | Profile · Ingestion · Normalization · Analysis · Scoring · Shortlist |
 | V2 | Resume generation · Application tracking · Job discovery APIs |
 | V3 | Outreach · Referral discovery · Response monitoring |
+
+## Development Status
+
+Phase 8 complete. Phase 9 is in progress.
