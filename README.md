@@ -179,3 +179,6 @@ uv run alembic upgrade head
 ## Development Status
 
 Phase 8 complete. Phase 9 is in progress.
+## Git Workflow
+
+This project uses Git for version control and GitHub for remote repository hosting.
