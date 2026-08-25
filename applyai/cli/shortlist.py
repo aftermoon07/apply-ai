@@ -51,14 +51,24 @@ async def _list_shortlist(limit: int):
         table.add_column("Company", style="magenta")
         table.add_column("Role", style="green")
         table.add_column("Score", justify="right", style="blue")
+        table.add_column("Priority", justify="center", style="bold")
         table.add_column("Recommendation", justify="right")
         
         for job, score in rows:
+            rec_upper = str(score.recommendation).upper()
+            if "STRONG_YES" in rec_upper or "YES" in rec_upper:
+                priority = "[bold green]HIGH[/bold green]"
+            elif "MAYBE" in rec_upper:
+                priority = "[bold yellow]MEDIUM[/bold yellow]"
+            else:
+                priority = "[bold dim]LOW[/bold dim]"
+                
             table.add_row(
                 job.id[:8],
                 job.company or "Unknown",
                 job.role or "Unknown",
                 f"{score.overall_score:.1f}",
+                priority,
                 score.recommendation
             )
             
@@ -94,15 +104,34 @@ async def _show_job(job_id: str):
         score = (await session.execute(select(JobScore).filter_by(job_id=job.id))).scalar_one_or_none()
         
         if analysis:
-            console.print(f"[bold cyan]Analysis Status:[/bold cyan] {analysis.analysis_status}")
             console.print(f"[bold cyan]Role Level:[/bold cyan] {analysis.role_level}")
-            console.print(f"[bold cyan]Tech Stack:[/bold cyan] {', '.join(json.loads(analysis.tech_stack or '[]'))}")
+            if job.location:
+                console.print(f"[bold cyan]Location:[/bold cyan] {job.location}")
+            if analysis.estimated_salary_usd:
+                console.print(f"[bold cyan]Salary:[/bold cyan] {analysis.estimated_salary_usd}")
+            elif job.salary_raw:
+                console.print(f"[bold cyan]Salary (Raw):[/bold cyan] {job.salary_raw}")
+            
+            req_skills = json.loads(analysis.required_skills or '[]')
+            pref_skills = json.loads(analysis.preferred_skills or '[]')
+            ats_kw = json.loads(analysis.ats_keywords or '[]')
+            if req_skills:
+                console.print(f"[bold cyan]Required Skills:[/bold cyan] {', '.join(req_skills)}")
+            if pref_skills:
+                console.print(f"[bold cyan]Preferred Skills:[/bold cyan] {', '.join(pref_skills)}")
+            if ats_kw:
+                console.print(f"[bold cyan]ATS Keywords:[/bold cyan] {', '.join(ats_kw)}")
         
         if score:
             console.print(f"\n[bold green]Overall Score:[/bold green] {score.overall_score:.1f} ({score.recommendation})")
+            if score.interview_potential_score is not None:
+                console.print(f"[bold green]Interview Potential:[/bold green] {score.interview_potential_score:.1f}")
             console.print(f"[bold green]Matching Skills:[/bold green] {', '.join(json.loads(score.matching_skills or '[]'))}")
             console.print(f"[bold red]Missing Skills:[/bold red] {', '.join(json.loads(score.missing_skills or '[]'))}")
-            console.print(f"[bold yellow]Concerns:[/bold yellow] {', '.join(json.loads(score.concerns or '[]'))}")
+            
+            concerns = json.loads(score.concerns or '[]')
+            if concerns:
+                console.print(f"[bold yellow]Concerns:[/bold yellow] {', '.join(concerns)}")
             
 @show_app.command("job")
 def show_job(job_id: str = typer.Argument(..., help="Job ID (or prefix)")) -> None:

@@ -97,6 +97,19 @@ def validate_profile() -> None:
     console.print(f"  Education entries:  {completeness['education_entries']}")
     console.print(f"  Project entries:    {completeness['project_entries']}")
     console.print(f"  Certifications:     {completeness['certification_entries']}")
+    
+    # Evidence Integrity
+    evidence = completeness.get("evidence_metrics", {})
+    valid_ev = evidence.get("valid", 0)
+    invalid_ev = evidence.get("invalid", 0)
+    total_ev = valid_ev + invalid_ev
+    if total_ev > 0:
+        if invalid_ev == 0:
+            console.print(f"\n[bold green]✓ Evidence Integrity:[/bold green] All {valid_ev} evidence references are valid.")
+        else:
+            console.print(f"\n[bold red]✗ Evidence Integrity:[/bold red] {invalid_ev} invalid references out of {total_ev} total.")
+    else:
+        console.print("\n[dim]Evidence Integrity: No evidence references found.[/dim]")
 
     if completeness["missing_documents"]:
         console.print(
