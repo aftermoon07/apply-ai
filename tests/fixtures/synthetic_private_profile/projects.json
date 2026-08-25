@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "entries": [
+    {
+      "id": "proj_fictional_observ_tool",
+      "name": "sentinel-watch",
+      "description": "Open-source Prometheus alerting rule linter and dry-run validator.",
+      "role": "Author and primary maintainer",
+      "is_professional": false,
+      "is_open_source": true,
+      "url": "https://github.com/fictional-alex-morgan/sentinel-watch",
+      "technologies": ["Go", "Prometheus", "YAML"],
+      "start_date": "2023-06",
+      "end_date": null,
+      "highlights": [
+        "150+ GitHub stars",
+        "Integrated by 2 fictional companies in their CI pipelines"
+      ],
+      "team_size": 1
+    },
+    {
+      "id": "proj_fictional_corp_deploy",
+      "name": "Fictional Deployment Gateway",
+      "description": "Internal canary deployment orchestration service built at Fictional Corp.",
+      "role": "Lead engineer — internal project",
+      "is_professional": true,
+      "is_open_source": false,
+      "url": null,
+      "technologies": ["Python", "Kubernetes", "Redis", "gRPC"],
+      "start_date": "2023-01",
+      "end_date": "2023-11",
+      "highlights": [
+        "Enabled zero-downtime deploys across all 12 production services"
+      ],
+      "team_size": 4
+    }
+  ]
+}

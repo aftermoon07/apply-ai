@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "preferred_work_mode": "remote",
+  "preferred_company_size": "startup-to-mid",
+  "preferred_industries": ["Developer Tooling", "Platform Engineering", "Cloud Infrastructure"],
+  "preferred_team_size": "5-15",
+  "preferred_tech_stack": ["Python", "Go", "Kubernetes"],
+  "values": ["ownership", "distributed systems", "observability"],
+  "notes": null
+}

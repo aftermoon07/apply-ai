@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "github_url": "https://github.com/fictional-alex-morgan",
+  "personal_website": null,
+  "linkedin_url": "https://linkedin.com/in/fictional-alex-morgan",
+  "publications": [],
+  "open_source_contributions": [
+    {
+      "repo": "fictional-alex-morgan/sentinel-watch",
+      "description": "Prometheus alerting rule linter and dry-run validator",
+      "url": "https://github.com/fictional-alex-morgan/sentinel-watch"
+    }
+  ],
+  "kaggle_profile": null,
+  "other_links": []
+}

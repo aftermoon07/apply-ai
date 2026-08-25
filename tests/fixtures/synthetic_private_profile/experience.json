@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "entries": [
+    {
+      "id": "exp_fictional_corp_senior",
+      "company": "Fictional Corp Ltd.",
+      "title": "Senior Software Engineer",
+      "location": "Metropolis, Testland",
+      "work_mode": "hybrid",
+      "employment_type": "full_time",
+      "start_date": "2022-03",
+      "end_date": null,
+      "is_current": true,
+      "description": "Platform engineering team building internal observability and deployment infrastructure.",
+      "responsibilities": [
+        "Designed and owned internal observability platform serving 30+ engineering squads",
+        "Led migration from monolith to microservices for core deployment pipeline",
+        "Mentored 2 junior engineers on distributed systems concepts"
+      ],
+      "achievements": [
+        "Reduced P99 alert latency by 60% through custom alerting pipeline redesign",
+        "Reduced deployment cycle time from 45 minutes to 12 minutes"
+      ],
+      "technologies": ["Python", "Go", "Kubernetes", "Prometheus", "Grafana", "PostgreSQL", "Redis"],
+      "team_size": 6
+    },
+    {
+      "id": "exp_fictional_startup_swe",
+      "company": "Fictional Startup Inc.",
+      "title": "Software Engineer",
+      "location": "Remote",
+      "work_mode": "remote",
+      "employment_type": "full_time",
+      "start_date": "2020-07",
+      "end_date": "2022-02",
+      "is_current": false,
+      "description": "Full-stack development for a B2B SaaS data platform.",
+      "responsibilities": [
+        "Built data ingestion APIs using FastAPI and PostgreSQL",
+        "Developed ETL pipelines handling ~3M events/day",
+        "Contributed to frontend dashboard using React"
+      ],
+      "achievements": [
+        "Shipped core billing module 2 weeks ahead of schedule"
+      ],
+      "technologies": ["Python", "FastAPI", "PostgreSQL", "React", "AWS", "Docker"],
+      "team_size": 10
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "categories": [
+    {"category": "Languages", "skills": ["Python", "Go", "SQL", "Bash"]},
+    {"category": "Frameworks & Libraries", "skills": ["FastAPI", "SQLAlchemy", "Cobra CLI", "React"]},
+    {"category": "Infrastructure & Cloud", "skills": ["Kubernetes", "Terraform", "AWS", "Docker", "Prometheus", "Grafana"]},
+    {"category": "Databases", "skills": ["PostgreSQL", "Redis", "SQLite"]},
+    {"category": "Tools", "skills": ["Git", "GitHub Actions", "gRPC", "Linux"]}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — completely fictional data. Not a real person. Used only in tests/fixtures/synthetic_private_profile/. Do NOT use as application default.",
+  "full_name": "Alex Morgan",
+  "email": "alex.morgan@fictional-example.invalid",
+  "phone": "+99-555-0100",
+  "location": "Metropolis, Testland",
+  "linkedin_url": "https://linkedin.com/in/fictional-alex-morgan",
+  "github_url": "https://github.com/fictional-alex-morgan",
+  "website": null,
+  "summary": "Synthetic fictional candidate for testing. Backend engineer with experience in distributed systems and observability tooling. Interested in platform engineering roles.",
+  "years_of_experience": 5,
+  "current_title": "Senior Software Engineer",
+  "current_employer": "Fictional Corp Ltd.",
+  "open_to_opportunities": true
+}

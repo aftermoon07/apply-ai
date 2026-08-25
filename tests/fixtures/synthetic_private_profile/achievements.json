@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "entries": [
+    {
+      "id": "ach_fictional_perf",
+      "title": "Performance Engineering Award — Fictional Corp",
+      "description": "Recognized for reducing P99 alert latency by 60% through observability pipeline redesign.",
+      "date": "2023-12",
+      "evidence_url": null
+    }
+  ]
+}

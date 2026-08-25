@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "roles": [
+    {
+      "title": "Staff Platform Engineer",
+      "seniority_level": "staff",
+      "keywords": ["platform", "kubernetes", "observability", "SRE"],
+      "priority": 1
+    },
+    {
+      "title": "Senior Backend Engineer",
+      "seniority_level": "senior",
+      "keywords": ["Python", "Go", "distributed systems", "API"],
+      "priority": 2
+    },
+    {
+      "title": "Developer Tools Engineer",
+      "seniority_level": "senior",
+      "keywords": ["CLI", "developer experience", "tooling", "Go"],
+      "priority": 3
+    }
+  ]
+}

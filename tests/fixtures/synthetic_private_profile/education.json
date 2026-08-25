@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "entries": [
+    {
+      "id": "edu_fictional_university_cs",
+      "institution": "Fictional State University",
+      "degree": "Bachelor of Technology",
+      "field_of_study": "Computer Science",
+      "start_year": 2016,
+      "end_year": 2020,
+      "gpa": "8.1/10",
+      "honors": null,
+      "relevant_coursework": ["Algorithms", "Operating Systems", "Distributed Systems", "Database Systems"],
+      "notes": null
+    }
+  ]
+}

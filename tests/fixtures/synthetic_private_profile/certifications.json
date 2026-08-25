@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only.",
+  "entries": [
+    {
+      "id": "cert_fictional_cka",
+      "name": "Certified Kubernetes Administrator (CKA)",
+      "issuing_organization": "Cloud Native Computing Foundation",
+      "issue_date": "2023-05",
+      "expiry_date": "2026-05",
+      "credential_id": "CKA-FICTIONAL-999",
+      "credential_url": "https://example.invalid/verify/CKA-FICTIONAL-999",
+      "is_expired": false
+    }
+  ]
+}

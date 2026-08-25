@@ -91,8 +91,8 @@ class AnalysisService:
         from applyai.core.database import get_session
         import hashlib
         
-        # Create a candidate snapshot
-        profile_json = json.dumps(candidate_profile, sort_keys=True)
+        # Create a candidate snapshot — hash must match candidate_profile_hash()
+        profile_json = json.dumps(candidate_profile, sort_keys=True, ensure_ascii=False)
         profile_hash = hashlib.sha256(profile_json.encode()).hexdigest()
         
         async with get_session() as session:

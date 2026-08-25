@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "_comment": "SYNTHETIC TEST FIXTURE — fictional data only. All hard_constraints are null (unset placeholder policy).",
+  "hard_constraints": {
+    "_note": "null means not specified — system will not infer or assume values",
+    "requires_visa_sponsorship": null,
+    "current_work_authorization": null,
+    "willing_to_relocate": null,
+    "relocation_cities": null,
+    "minimum_salary": null,
+    "salary_currency": null,
+    "maximum_commute_minutes": null,
+    "no_bond": null,
+    "no_night_shifts": null
+  },
+  "soft_constraints": {
+    "preferred_work_mode": "remote",
+    "preferred_team_size": null,
+    "avoid_industries": []
+  }
+}
