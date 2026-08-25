@@ -203,7 +203,7 @@ def validate_candidate_profile(raw: dict):
         )
 
     try:
-        return CandidateProfile(**parsed)
+        profile = CandidateProfile(**parsed)
     except ValidationError as ve:
         field_errors = "; ".join(
             f"{'.'.join(str(loc) for loc in e['loc'])}: {e['type']}"
@@ -211,6 +211,63 @@ def validate_candidate_profile(raw: dict):
         )
         raise ProfileValidationError(
             f"CandidateProfile assembly failed: {field_errors}"
+        )
+
+    # Cross-document evidence validation
+    _validate_cross_document_evidence(profile)
+
+    return profile
+
+def _validate_cross_document_evidence(profile):
+    """
+    Validates that evidence references actually exist in experience/projects,
+    checks for duplicate IDs, and enforces skill-level evidence rules.
+    Raises ProfileValidationError on failure.
+    """
+    errors = []
+
+    # 1. Check for duplicate IDs
+    exp_ids = []
+    for exp in profile.experience.entries:
+        exp_ids.append(exp.id)
+    if len(exp_ids) != len(set(exp_ids)):
+        errors.append("experience.json: contains duplicate IDs")
+        
+    proj_ids = []
+    for proj in profile.projects.entries:
+        proj_ids.append(proj.id)
+    if len(proj_ids) != len(set(proj_ids)):
+        errors.append("projects.json: contains duplicate IDs")
+
+    exp_id_set = set(exp_ids)
+    proj_id_set = set(proj_ids)
+
+    # 2. Validate skill evidence
+    for skill in profile.skill_levels.skills:
+        # Check professional skill evidence rule
+        if skill.level in ("strong", "working") and not skill.evidence:
+            errors.append(f"skill_levels.json: skill '{skill.name}' ({skill.level}) requires evidence but none was provided")
+
+        for ref in skill.evidence:
+            if not ":" in ref:
+                errors.append(f"skill_levels.json: invalid evidence reference format '{ref}'")
+                continue
+            
+            ref_type, ref_id = ref.split(":", 1)
+            
+            if ref_type == "experience":
+                if ref_id not in exp_id_set:
+                    errors.append(f"skill_levels.json: invalid evidence reference \"{ref}\" (ID not found in experience)")
+            elif ref_type == "project":
+                if ref_id not in proj_id_set:
+                    errors.append(f"skill_levels.json: invalid evidence reference \"{ref}\" (ID not found in projects)")
+            else:
+                errors.append(f"skill_levels.json: Unsupported evidence reference type: {ref_type}")
+
+    if errors:
+        raise ProfileValidationError(
+            "Candidate profile failed cross-document validation:\n"
+            + "\n".join(f"  - {e}" for e in errors)
         )
 
 
@@ -223,16 +280,45 @@ def profile_completeness(raw: dict) -> dict:
         missing_documents: list[str]
         is_complete: bool
         skill_summary: dict  (counts by level, no actual skill names)
+        evidence_metrics: dict (valid vs invalid evidence counts)
     """
     present = [k for k in REQUIRED_DOCUMENTS if k in raw]
     missing = sorted(REQUIRED_DOCUMENTS - set(raw.keys()))
 
     skill_summary: dict = {}
+    valid_evidence = 0
+    invalid_evidence = 0
+    
+    # Precompute valid IDs for completeness checking
+    exp_ids = set()
+    for exp in raw.get("experience", {}).get("entries", []):
+        if "id" in exp:
+            exp_ids.add(exp["id"])
+            
+    proj_ids = set()
+    for proj in raw.get("projects", {}).get("entries", []):
+        if "id" in proj:
+            proj_ids.add(proj["id"])
+            
     sl_raw = raw.get("skill_levels", {})
     skills_list = sl_raw.get("skills", [])
     for entry in skills_list:
         level = entry.get("level", "unknown")
         skill_summary[level] = skill_summary.get(level, 0) + 1
+        
+        evidence = entry.get("evidence", [])
+        if isinstance(evidence, list):
+            for ref in evidence:
+                if not isinstance(ref, str) or ":" not in ref:
+                    invalid_evidence += 1
+                    continue
+                ref_type, ref_id = ref.split(":", 1)
+                if ref_type == "experience" and ref_id in exp_ids:
+                    valid_evidence += 1
+                elif ref_type == "project" and ref_id in proj_ids:
+                    valid_evidence += 1
+                else:
+                    invalid_evidence += 1
 
     exp_count = len(raw.get("experience", {}).get("entries", []))
     edu_count = len(raw.get("education", {}).get("entries", []))
@@ -248,6 +334,10 @@ def profile_completeness(raw: dict) -> dict:
         "education_entries": edu_count,
         "project_entries": proj_count,
         "certification_entries": cert_count,
+        "evidence_metrics": {
+            "valid": valid_evidence,
+            "invalid": invalid_evidence,
+        }
     }
 
 

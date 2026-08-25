@@ -13,32 +13,55 @@
       "name": "Python",
       "level": "strong",
       "years_of_experience": 4,
-      "evidence": ["exp_startup_swe1", "exp_example_corp_swe2", "proj_internal_dashboard"],
-      "tags": ["language", "backend"],
-      "notes": "Years of experience is from evidence above — not inferred from level"
+      "evidence": [
+        "experience:exp_startup_swe1",
+        "experience:exp_example_corp_swe2",
+        "project:proj_internal_dashboard"
+      ],
+      "tags": [
+        "language",
+        "backend"
+      ],
+      "notes": "Years of experience is from evidence above \u2014 not inferred from level"
     },
     {
       "name": "Go",
       "level": "working",
       "years_of_experience": 2,
-      "evidence": ["exp_example_corp_swe2", "proj_oss_cli_tool"],
-      "tags": ["language", "backend"],
+      "evidence": [
+        "experience:exp_example_corp_swe2",
+        "project:proj_oss_cli_tool"
+      ],
+      "tags": [
+        "language",
+        "backend"
+      ],
       "notes": null
     },
     {
       "name": "Kubernetes",
       "level": "working",
       "years_of_experience": 2,
-      "evidence": ["exp_example_corp_swe2"],
-      "tags": ["infrastructure", "cloud"],
+      "evidence": [
+        "experience:exp_example_corp_swe2"
+      ],
+      "tags": [
+        "infrastructure",
+        "cloud"
+      ],
       "notes": null
     },
     {
       "name": "Terraform",
       "level": "basic",
       "years_of_experience": null,
-      "evidence": ["exp_example_corp_swe2"],
-      "tags": ["infrastructure", "iac"],
+      "evidence": [
+        "experience:exp_example_corp_swe2"
+      ],
+      "tags": [
+        "infrastructure",
+        "iac"
+      ],
       "notes": "Used for team infra tasks; not the primary author"
     },
     {
@@ -46,7 +69,9 @@
       "level": "learning",
       "years_of_experience": null,
       "evidence": [],
-      "tags": ["language"],
+      "tags": [
+        "language"
+      ],
       "notes": "Self-studying; no production use yet"
     },
     {
@@ -54,7 +79,9 @@
       "level": "none",
       "years_of_experience": null,
       "evidence": [],
-      "tags": ["language"],
+      "tags": [
+        "language"
+      ],
       "notes": null
     }
   ]
