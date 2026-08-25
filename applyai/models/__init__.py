@@ -7,6 +7,7 @@ from applyai.models.scoring import CandidateSnapshot, JobScore
 from applyai.models.application import Application, Interview, Response, ResumeVersion
 from applyai.models.outreach import Contact, Outreach
 from applyai.models.event import AuditEvent, EventType
+from applyai.models.usage import ProviderUsage
 
 __all__ = [
     "Base",
@@ -23,4 +24,5 @@ __all__ = [
     "Outreach",
     "AuditEvent",
     "EventType",
+    "ProviderUsage",
 ]

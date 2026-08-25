@@ -29,6 +29,12 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 # ── Sub-config models ─────────────────────────────────────────────────────────
 
 
+class ModelPricingConfig(BaseModel):
+    """Token pricing per million tokens."""
+    input_per_million_tokens: float = 0.0
+    output_per_million_tokens: float = 0.0
+
+
 class AIConfig(BaseModel):
     """AI provider runtime configuration.
 
@@ -44,6 +50,7 @@ class AIConfig(BaseModel):
     max_retries: int = 3
     retry_backoff_seconds: float = 2.0
     timeout_seconds: float = 60.0
+    pricing: dict[str, dict[str, ModelPricingConfig]] = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def validate_provider(self) -> "AIConfig":

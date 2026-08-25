@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Type, TypeVar
 from pydantic import BaseModel
 
-from applyai.providers.base import AIProvider
+from applyai.providers.base import AIProvider, ProviderContext
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -19,7 +19,8 @@ class NullProvider(AIProvider):
         self,
         system_prompt: str,
         user_prompt: str,
-        response_model: Type[T]
+        response_model: Type[T],
+        context: ProviderContext | None = None
     ) -> T:
         """Return a default instance of the response model."""
         # Attempt to construct an instance with default values.
@@ -32,5 +33,6 @@ class NullProvider(AIProvider):
         self,
         system_prompt: str,
         user_prompt: str,
+        context: ProviderContext | None = None
     ) -> str:
         return "# Dummy Generated Text\n\nThis is a placeholder since the AI provider is 'none'."
