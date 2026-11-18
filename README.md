@@ -1,411 +1,238 @@
-# ApplyAI — README Rewrite
-
-You are modifying ONLY the public-facing README.md of the existing ApplyAI repository.
-
-IMPORTANT:
-This is a documentation-only task.
-
-Do NOT modify Python code, tests, configuration, migrations, database models, candidate files, Git history, or any other repository file.
-
-Do NOT perform a full architecture review.
-Do NOT re-analyze the entire codebase.
-Do NOT refactor anything.
-Do NOT create new files.
-
-Inspect only the existing README and, if necessary, briefly verify current project capabilities from filenames/known implementation structure.
-
-==================================================
-OBJECTIVE
-==================================================
-
-Rewrite README.md into a professional, portfolio-quality GitHub README that presents ApplyAI as a serious software engineering project.
-
-The README should focus on:
-
-- What ApplyAI does
-- Why it exists
-- Its architecture
-- Engineering decisions
-- Key features
-- Security and privacy
-- Testing
-- AI provider architecture
-- Usage
-- Project structure
-- Development status
-- Roadmap
-
-The README should NOT prominently discuss the AI development tools used to create the project.
-
-In particular:
-
-REMOVE the current section:
-
-"Model Access — Important Distinction"
-
-and remove references to:
-
-- Antigravity IDE
-- Claude being used to write/review the project
-- development-agent model usage
-- internal AI coding workflow
-- prompts used to build the project
-- token limits of the development environment
-- internal development conversations
-
-The README is for GitHub visitors, recruiters, engineers, and interviewers.
-
-It should describe the SOFTWARE PROJECT, not the development environment used to create it.
-
-Do not falsely claim that the project was developed without AI assistance. Simply do not make the development tooling part of the public project description.
-
-==================================================
-OPENING
-==================================================
-
-Use this opening structure:
-
 # ApplyAI
 
 > AI-powered personal job acquisition agent designed to maximize interview opportunities rather than application volume.
 
-Then explain that ApplyAI is an end-to-end job intelligence and application preparation system built with Python.
+ApplyAI is an end-to-end job intelligence and application-preparation system built in Python. It ingests job postings, normalizes and deduplicates them, analyzes requirements, matches each role against a structured candidate profile, scores and shortlists opportunities, and prepares tailored resumes, application answers and outreach drafts — while tracking every application through its lifecycle with audit events and AI usage/cost telemetry.
 
-Explain that it can:
+It is deliberately **not** a mass-apply bot. ApplyAI prepares; a human decides and submits.
 
-- ingest and discover jobs
-- normalize and deduplicate job postings
-- analyze job requirements
-- match jobs against a structured candidate profile
-- score opportunities
-- shortlist suitable roles
-- generate tailored resumes
-- prepare application answers
-- generate evidence-grounded outreach drafts
-- provide referral search strategies
-- track application lifecycle
-- record audit events
-- track AI token usage and estimated costs
-
-Make the description concise but technically credible.
-
-==================================================
-CORE DESIGN PRINCIPLES
-==================================================
-
-Add:
+---
 
 ## Design Principles
 
-Include these principles:
+**Deterministic first.** Ordinary Python handles everything that can be computed exactly — SHA-256 deduplication, URL normalization, date parsing, salary extraction, weighted scoring, threshold filtering, profile and evidence validation, token/cost accounting. LLMs are used only where semantic interpretation is genuinely required.
 
-### Deterministic First
+**Evidence grounded.** The system must not invent experience, education, certifications, skills or employment history. Professional claims are linked to evidence in the candidate profile, and cross-document validation rejects references to experience or project IDs that don't exist.
 
-Use ordinary Python logic wherever deterministic processing is possible.
+**Human in the loop.** ApplyAI produces recommendations, resumes, answers, outreach drafts and application state. It never submits applications or sends messages on its own.
 
-Examples:
+**Provider agnostic.** AI providers sit behind a common interface, so business logic does not depend on any one vendor.
 
-- SHA-256 deduplication
-- URL normalization
-- date parsing
-- salary extraction
-- weighted scoring
-- threshold filtering
-- candidate validation
-- evidence validation
-- token/cost calculations
+---
 
-LLMs are reserved for tasks that genuinely require semantic interpretation.
+## Key Features
 
-### Evidence Grounded
+**Job intelligence**
+- Ingestion from files, stdin and JSON batches, plus a pluggable discovery-adapter framework
+- Deterministic normalization: URLs, dates, salary ranges
+- SHA-256 fingerprint deduplication
+- AI job analysis that preserves ATS keywords
+- Candidate matching with configurable, weighted scoring and shortlisting
 
-The system must not invent candidate experience, education, certifications, skills, or employment history.
-
-Professional claims must be traceable to candidate evidence.
-
-### Human in the Loop
-
-ApplyAI prepares recommendations, resumes, answers, outreach drafts, and application state.
-
-It does not automatically submit applications or send messages.
-
-Any future external action requires explicit user approval.
-
-### Provider Agnostic
-
-The application does not depend on one AI provider.
-
-Providers are abstracted behind a common interface.
-
-==================================================
-KEY FEATURES
-==================================================
-
-Add a strong feature section.
-
-Use categories:
-
-### Job Intelligence
-- Job ingestion
-- Job discovery adapter framework
-- Deterministic normalization
-- URL normalization
-- Salary extraction
-- Date parsing
-- SHA-256 deduplication
-- AI job analysis
-- ATS keyword preservation
-- Candidate matching
-- Configurable scoring
-- Shortlisting
-
-### Candidate Intelligence
-- Structured candidate profile
-- Skill proficiency levels
-- Evidence-linked skills
+**Candidate intelligence**
+- Structured, schema-validated candidate profile (Pydantic)
+- Skill proficiency levels and evidence-linked skills
 - Cross-document evidence validation
-- Candidate snapshots
-- Profile hashing
-- Privacy boundary between synthetic and private data
+- Profile hashing and candidate snapshots for reproducible analyses
+- Hard privacy boundary between synthetic example data and private data
 
-### Application Preparation
+**Application preparation**
 - Job-specific resume generation
-- Application lifecycle state machine
-- Evidence-grounded application QA
-- Evidence-grounded outreach
+- Application lifecycle state machine with validated transitions
+- Evidence-grounded application QA and outreach drafts
 - Referral search strategies
-- Human-reviewable local drafts
+- Local, human-reviewable drafts
 
-### Reliability & Security
-- Provider abstraction
-- NullProvider for offline operation
-- Retry handling
-- Prompt-injection protection
-- Path traversal protection
-- Idempotent analysis
-- Audit events
-- Token/cost telemetry
-- Comprehensive automated testing
+**Reliability & security**
+- Provider abstraction with a `NullProvider` for fully offline operation
+- Retry handling with exponential backoff
+- Prompt-injection hardening (job descriptions are treated as untrusted data)
+- Path-traversal protection on generated filenames
+- Idempotent analysis keyed on job + profile hash
+- Audit events and per-call token/cost telemetry
+- 200+ automated unit and integration tests
 
-Do not claim functionality that does not exist.
-
-==================================================
-ARCHITECTURE
-==================================================
-
-Add:
+---
 
 ## Architecture
 
-Show this conceptual diagram:
-
-CLI / Application Interface
-        ↓
-Services
-        ↓
-Agents
-        ↓
-AI Provider Abstraction
-        ↓
+```
+CLI (Typer + Rich)
+      ↓
+Services         ← business logic & orchestration
+      ↓
+Agents           ← semantic AI tasks (analyze, match, tailor, QA, outreach)
+      ↓
+Provider interface
+      ↓
 Anthropic | Gemini | NullProvider
+```
 
-And separately:
+```
+Discovery adapters → Discovery service → Job service → Processing + Storage
+```
 
-Discovery Adapters
-        ↓
-Discovery Service
-        ↓
-Job Service
-        ↓
-Processing + Storage
+| Layer | Responsibility |
+|---|---|
+| `cli/` | User-facing commands |
+| `services/` | Orchestration and business rules |
+| `agents/` | LLM-backed semantic tasks |
+| `providers/` | Provider-independent AI interface |
+| `processing/` | Deterministic operations (dedup, normalize, score) |
+| `storage/`, `models/` | Async SQLAlchemy persistence, Alembic migrations |
+| `schemas/` | Pydantic validation |
+| `discovery/` | Pluggable job-source adapters |
+| `eval/` | Prompt evaluation runner over synthetic datasets |
 
-Explain the layers briefly:
-
-- CLI: user-facing commands
-- Services: business logic and orchestration
-- Agents: semantic AI tasks
-- Providers: provider-independent AI interface
-- Processing: deterministic operations
-- Storage: database access
-- Models: SQLAlchemy persistence
-- Schemas: Pydantic validation
-- Discovery: pluggable job-source architecture
-
-Do not include internal filesystem paths specific to one developer machine.
-
-==================================================
-END-TO-END PIPELINE
-==================================================
-
-Add:
+---
 
 ## Pipeline
 
-Show:
+```
+Candidate profile
+   → Discovery / ingestion
+   → Normalization → Deduplication
+   → Job analysis → Candidate matching
+   → Deterministic scoring → Shortlist
+   → Resume & application preparation → Outreach drafts
+   → Application tracking
+   → Audit + usage telemetry
+```
 
-Candidate Profile
-        ↓
-Job Discovery / Ingestion
-        ↓
-Normalization
-        ↓
-Deduplication
-        ↓
-Job Analysis
-        ↓
-Candidate Matching
-        ↓
-Deterministic Scoring
-        ↓
-Shortlist
-        ↓
-Resume / Application Preparation
-        ↓
-Outreach Drafts
-        ↓
-Application Tracking
-        ↓
-Audit + Usage Telemetry
+Deterministic steps and AI-powered steps are intentionally separated, so every AI step can be skipped, retried or evaluated in isolation.
 
-Explain that deterministic operations and AI-powered operations are intentionally separated.
-
-==================================================
-AI ARCHITECTURE
-==================================================
-
-Add:
-
-## AI Architecture
-
-Explain that supported runtime providers include:
-
-- Anthropic
-- Google Gemini
-- NullProvider
-
-Configuration is controlled through settings.yaml and environment variables.
-
-The application can run without an AI API key when using the NullProvider.
-
-Explain that provider-specific implementation is isolated from business logic.
-
-Do NOT mention Antigravity.
-
-Do NOT mention which model was used to develop the project.
-
-Do NOT include development-tool model information.
-
-==================================================
-SCORING
-==================================================
-
-Add:
+---
 
 ## Candidate Matching & Scoring
 
-Explain:
+1. The AI matcher produces qualitative assessments for each scoring component (technical skills, experience, education, location/work mode, seniority, project relevance, keyword coverage).
+2. Python applies the weights configured in `config/settings.yaml` (validated to sum to 1.0 at startup).
+3. Python computes the final 0–100 score.
+4. Configured thresholds map the score to a recommendation (strong yes / yes / maybe / no) and decide shortlisting.
 
-1. The AI matcher produces qualitative component assessments.
-2. Python applies configured scoring weights.
-3. Python calculates the final 0–100 score.
-4. Thresholds determine recommendations.
-5. The final score is NOT generated directly by the LLM.
+**The final score is never generated directly by the LLM.** An experimental "interview potential" heuristic is also computed; it is an internal signal, not a probability.
 
-Mention that the system also contains an experimental interview-potential heuristic and that it is not presented as a guaranteed probability.
+---
 
-==================================================
-SECURITY & PRIVACY
-==================================================
+## AI Providers
 
-Add:
+| Provider | Setting | Requirement |
+|---|---|---|
+| None (offline) | `provider: none` | nothing — AI steps return `skipped` |
+| Anthropic | `provider: anthropic` | `ANTHROPIC_API_KEY` in `.env`, `uv sync --extra anthropic` |
+| Google Gemini | `provider: gemini` | `GOOGLE_API_KEY` in `.env`, `uv sync --extra gemini` |
+
+The provider and model are configured only in `config/settings.yaml`; model strings are never hard-coded in source.
+
+---
 
 ## Security & Privacy
 
-Include:
-
-- API keys stored through environment variables
-- `.env` excluded from Git
-- private candidate directory excluded from Git
-- synthetic example data used for development/testing
-- no automatic application submission
-- no automatic email or LinkedIn messaging
-- no external account connections in the current implementation
-- untrusted job descriptions treated as untrusted data
-- prompt injection protections
-- generated filenames sanitized against path traversal
-- SQLAlchemy parameterized database operations
-- evidence-grounded candidate claims
-- privacy-safe validation errors
-- candidate snapshots for reproducibility
-
-Make clear:
-
 > ApplyAI does not automatically submit applications or send external messages.
 
-==================================================
-CANDIDATE PROFILE
-==================================================
+- API keys come from environment variables; `.env` is gitignored
+- Real candidate data lives in `candidate/private/`, which is gitignored; only synthetic example data is committed
+- No external account connections (email, LinkedIn, job boards) in the current implementation
+- Job descriptions are wrapped and treated as untrusted input to resist prompt injection
+- Generated filenames are sanitized against path traversal
+- All database access goes through parameterized SQLAlchemy operations
+- Validation errors avoid echoing private profile data
+- Candidate snapshots make every analysis reproducible
 
-Add:
+---
 
 ## Candidate Profile
 
-Explain that the candidate profile is represented as structured JSON documents.
+The profile is a set of structured JSON documents: identity, education, experience, projects, skills, skill levels, achievements, certifications, portfolio, preferences, target roles and constraints.
 
-Mention categories such as:
+- A synthetic example lives in `candidate/example/`
+- Private data goes in `candidate/private/` (gitignored)
+- The profile is validated before any use (`applyai profile validate`)
+- Skill claims can link to evidence, and cross-document checks catch references to nonexistent experience or project IDs
 
-- identity
-- education
-- experience
-- projects
-- skills
-- skill levels
-- achievements
-- certifications
-- portfolio
-- preferences
-- target roles
-- constraints
+---
 
-Explain:
+## Getting Started
 
-- synthetic example data is committed
-- private candidate data is gitignored
-- profile validation occurs before use
-- professional skill claims can be linked to evidence
-- cross-document evidence validation prevents references to nonexistent experience/project IDs
-
-Do NOT include any real candidate information.
-
-==================================================
-USAGE
-==================================================
-
-Keep useful CLI examples, but update them to reflect the current implementation.
-
-Use:
+Requires Python 3.12+ and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-uv run applyai profile validate
-uv run applyai profile show
+git clone https://github.com/aftermoon07/apply-ai.git
+cd apply-ai
+uv sync                     # add --extra anthropic / --extra gemini for AI providers
+uv run alembic upgrade head # create the local SQLite database
+uv run pytest               # run the test suite
+```
 
+## Usage
+
+```bash
+# Profile
+uv run applyai profile validate
+
+# Ingest jobs
 uv run applyai ingest file --file path/to/job.txt
 cat job.txt | uv run applyai ingest text
 uv run applyai ingest batch --file path/to/jobs.json
 
+# Discover, analyze, shortlist
 uv run applyai discover run
-
 uv run applyai analyze
-uv run applyai score
-
 uv run applyai shortlist
-uv run applyai show <job-id>
+uv run applyai show job <job-id>
 
+# Prepare and track
 uv run applyai resume generate <job-id>
-
+uv run applyai prep run <job-id>
 uv run applyai track update <job-id> prepared
 uv run applyai track list --status interviewing
 
-uv run applyai prep run <job-id>
-
+# Whole workflow / telemetry / evals
+uv run applyai pipeline run
+uv run applyai daily
 uv run applyai usage
+uv run applyai eval run
+```
+
+---
+
+## Testing
+
+```bash
+uv run pytest
+uv run pytest --cov=applyai
+```
+
+The suite covers deterministic processing, scoring, the provider layer, agents (with mocked providers), services, the application state machine and end-to-end pipeline integration.
+
+---
+
+## Project Structure
+
+```
+applyai/
+  agents/       cli/        core/       discovery/   eval/
+  ingestion/    models/     processing/ providers/   schemas/
+  services/     storage/
+candidate/      # example (synthetic) and private (gitignored) profiles
+config/         # settings.yaml, logging.yaml
+migrations/     # Alembic
+tests/          # unit/ and integration/
+```
+
+---
+
+## Status & Roadmap
+
+The core pipeline — ingestion through application tracking — is implemented and tested. Current work focuses on running it against real job searches.
+
+Planned:
+- CLI and UX polish
+- Additional real job-source discovery adapters
+- Final security and architecture review
+
+---
+
+## License
+
+MIT
